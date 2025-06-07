@@ -182,12 +182,25 @@ margin-top: 3rem;
 text-align: center;
 }
 
-.calendar-nav {
-align-items: center;
-display: flex;
-gap: 1rem;
-justify-content: center;
-margin-bottom: 1rem;
+.calendar-nav button {
+  background-color: #edf2f7;
+  color: #2d3748;
+  border: 1px solid #cbd5e0;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.calendar-nav button:hover {
+  background-color: #e2e8f0;
+  transform: scale(1.05);
+}
+
+.calendar-nav button:active {
+  background-color: #cbd5e0;
 }
 
 #monthly-calendar {
