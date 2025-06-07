@@ -633,20 +633,16 @@ tbody.innerHTML += `<tr>${rowHtml.join('')}</tr>`;
 // --- Filter Icon Handler ---
 
 function setGameFilter(game) {
-  // 若再次點擊已選中的遊戲，則重設為全部
-  if (selectedGameFilter === game) {
-    selectedGameFilter = 'ALL';
-  } else {
-    selectedGameFilter = game;
-  }
+  // 若點擊相同 icon，則清除過濾
+  selectedGameFilter = (selectedGameFilter === game) ? 'ALL' : game;
 
   renderWeeklyCalendar();
   renderMonthlyCalendar();
 
-  // 更新所有圖示的 active 樣式
-  document.querySelectorAll('.game-icon-btn').forEach(el => {
-    const iconGame = el.getAttribute('onclick').match(/setGameFilter\('(.+?)'\)/)[1];
-    el.classList.toggle('active', selectedGameFilter !== 'ALL' && iconGame === selectedGameFilter);
+  // 更新圖示樣式
+  document.querySelectorAll('.game-icon-btn').forEach(img => {
+    const isSelected = img.getAttribute('onclick').includes(`'${selectedGameFilter}'`);
+    img.classList.toggle('active', selectedGameFilter !== 'ALL' && isSelected);
   });
 }
 
