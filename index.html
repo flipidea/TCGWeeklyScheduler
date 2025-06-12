@@ -338,7 +338,7 @@ onclick="setGameFilter('GA')">
 alt="GD" title="GD" 
  class="game-icon-btn"
 onclick="setGameFilter('GD')">
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxaA9irsTB2txKUytfavLB4Q1DU3za4aYGaQ&s" 
+<img src="https://cdn-icons-png.flaticon.com/512/5190/5190878.png" 
 alt="BD" title="BD" 
  class="game-icon-btn"
 onclick="setGameFilter('BD')">
@@ -388,6 +388,9 @@ const gameMap = {
 "BX": "戰鬥陀螺",
 };
 
+const tcgPlusIcon = "https://play-lh.googleusercontent.com/yA_n7fQcN-9yYQBCVvFS8eq8y4elGPpEiqv2dvyyptUbm2rN9MlxKHs8gD_mZWi72bY"; // 替換為你實際想用的圖
+const tcgPlusGames = ["OPCG", "DTCG", "UA", "GD"];
+
 const gameIcons = {
 "OPCG": "https://asia-en.onepiece-cardgame.com/images/common/logo_op.png",
 "PTCG": "https://asia.pokemon-card.com/tw/archive/common/assets_c/2020/07/2e2bf4baa03a74a3255081c651dcefc8e04a8731-thumb-650x488-15014.png",
@@ -433,6 +436,9 @@ const overrides = {
  ],
   "2025-06-14": [
  { time: "19:00", name: "「東京之王 - 東京SOS 店家賽",icon: "https://www.asmodee.com.tw/web/image/product.template/1042/image?unique=e63d2c2", game: "BD" }
+ ],
+ "2025-06-15": [
+ { time: "15:00", name: "常規賽", game: "OPCG", icon: "https://asia-tw.onepiece-cardgame.com/images/events/officialevents/standardbattle/img_thumbnail.png", signup: "https://www.bandai-tcg-plus.com/event/3680955" }
  ]
 // "2025-06-08": [
 // { time: "19:00", name: "奪盒賽", game: "OPCG", icon: "https://i.ytimg.com/vi/r74jMgARJL4/maxresdefault.jpg", link: "https://forms.gle/boxwar" }
@@ -547,6 +553,24 @@ eventElem.className = 'event';
 
 // Determine the icon source, prioritizing event.icon then gameIcons map
 const iconSrc = event.icon || (event.game && gameIcons[event.game]) || fallbackIcon;
+
+// 判斷報名按鈕 HTML
+let actionHTML = '';
+if (event.signup) {
+  if (tcgPlusGames.includes(event.game)) {
+    actionHTML = `
+      <div class="event-action">
+        <a href="${event.signup}" target="_blank">
+          <img src="${tcgPlusIcon}" alt="TCG+報名" style="height:28px; width:28px;" />
+        </a>
+      </div>`;
+  } else {
+    actionHTML = `
+      <div class="event-action">
+        <a class="signup-btn" href="${event.signup}" target="_blank">報名</a>
+      </div>`;
+  }
+}
 
 eventElem.innerHTML = `
 <img src="${iconSrc}" alt="icon" onerror="this.onerror=null;this.src='${fallbackIcon}'" />
